@@ -16,6 +16,12 @@ node[:deploy].each do |application, deploy|
 
   #template "#{deploy[:deploy_to]}/current/wp-config.php" do
   template "#{deploy[:deploy_to]}/shared/config/keys.php" do
+
+    Chef::Log.debug("************************")
+    Chef::Log.debug(deploy[:symlinks])
+    Chef::Log.debug("************************")
+
+
     source "keys.php.erb"
     mode 0660
     group deploy[:group]
