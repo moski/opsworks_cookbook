@@ -11,14 +11,14 @@ node[:deploy].each do |application, deploy|
     Chef::Log.info("Skipping WP Configure  application #{application} as it is not defined as php wp")
     next
   end
-
+  tmp = deploy
   deploy = node[:deploy][application]
 
   #template "#{deploy[:deploy_to]}/current/wp-config.php" do
   template "#{deploy[:deploy_to]}/shared/config/keys.php" do
 
     Chef::Log.info("************************")
-    Chef::Log.info(deploy.inspect)
+    Chef::Log.info(tmp.inspect)
     Chef::Log.info("************************")
 
 
