@@ -18,7 +18,7 @@ node[:deploy].each do |application, deploy|
   template "#{deploy[:deploy_to]}/shared/config/keys.php" do
 
     Chef::Log.info("************************")
-    Chef::Log.info(deploy[:symlinks])
+    Chef::Log.info(deploy.inspect)
     Chef::Log.info("************************")
 
 
