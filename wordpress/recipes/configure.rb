@@ -22,11 +22,27 @@ node[:deploy].each do |application, deploy|
     owner deploy[:user]
 
     variables(
-      :database   => (deploy[:database][:database] rescue nil),
-      :user       => (deploy[:database][:username] rescue nil),
-      :password   => (deploy[:database][:password] rescue nil),
-      :host       => (deploy[:database][:host] rescue nil),
-      :keys       => (keys rescue nil),
-      :domain     => (deploy[:domains].first))
+      # DB configuration
+      :database         => (deploy[:database][:database] rescue nil),
+      :user             => (deploy[:database][:username] rescue nil),
+      :password         => (deploy[:database][:password] rescue nil),
+      :host             => (deploy[:database][:host] rescue nil),
+
+      # authentication
+      :auth_key         => (deploy[:authentication][:auth_key] rescue nil),
+      :secret_auth_key  => (deploy[:authentication][:secret_auth_key] rescue nil),
+      :logged_in_key    => (deploy[:authentication][:logged_in_key] rescue nil),
+      :nonce_key        => (deploy[:authentication][:nonce_key] rescue nil),
+      :auth_salt        => (deploy[:authentication][:auth_salt] rescue nil),
+      :secure_auth_salt => (deploy[:authentication][:secure_auth_salt] rescue nil),
+      :logged_in_salt   => (deploy[:authentication][:logged_in_salt] rescue nil),
+      :nonce_salt       => (deploy[:authentication][:nonce_salt] rescue nil),
+
+      # S3 secret keys
+      :s3_access_key    => (deploy[:aws][:s3_access_key] rescue nil),
+      :s3_secret_key    => (deploy[:aws][:s3_secret_key] rescue nil),
+
+      # Domain
+      :domain           => (deploy[:domains].first))
   end
 end
