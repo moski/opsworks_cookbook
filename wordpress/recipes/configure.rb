@@ -8,7 +8,7 @@ node[:deploy].each do |application, deploy|
   Chef::Log.info("Configuring WP app #{application}...")
 
   if defined?(deploy[:application_type]) && deploy[:application_type] != 'php'
-    Chef::Log.debug("Skipping WP Configure  application #{application} as it is not defined as php wp")
+    Chef::Log.info("Skipping WP Configure  application #{application} as it is not defined as php wp")
     next
   end
 
@@ -17,9 +17,9 @@ node[:deploy].each do |application, deploy|
   #template "#{deploy[:deploy_to]}/current/wp-config.php" do
   template "#{deploy[:deploy_to]}/shared/config/keys.php" do
 
-    Chef::Log.debug("************************")
-    Chef::Log.debug(deploy[:symlinks])
-    Chef::Log.debug("************************")
+    Chef::Log.info("************************")
+    Chef::Log.info(deploy[:symlinks])
+    Chef::Log.info("************************")
 
 
     source "keys.php.erb"
