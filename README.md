@@ -9,13 +9,13 @@ For example, To deploy a website called example.com, you will add the fillowing 
 ```json
 {
 	"deploy": {
-		"wp_staging": {
+		"app_shortname": {
 		  	"hostname": "example.com",
 				"database":{
 					"database": "dbname",
 					"username": "dbuser",
 					"password": "dbpassword",
-					"host": "dbHOST"
+					"host": "dbhost"
 				},
 				"authentication": {
 					"auth_key": "",
@@ -42,10 +42,14 @@ For example, To deploy a website called example.com, you will add the fillowing 
 
 ## Notes
 
-1. For [authentication keys values](https://api.wordpress.org/secret-key/1.1/salt/)
-2. In Symlink the path for the health-check.php should be inside the theme, so replace "Theme" with your theme name.
-3. for ELB make sure to set the ping path to "/wp-content/themes/THEME/health-check.php". replace THEME with your current theme name.
-4. Wordpress wp-config.php should be something similar to:
+1. make sure to change the "app_shortname" to the app short name from Opsworks app description page.
+2. For [authentication keys values](https://api.wordpress.org/secret-key/1.1/salt/)
+3. In Symlink the path for the health-check.php should be inside the theme, so replace "Theme" with your theme name.
+4. for ELB make sure to set the ping path to "/wp-content/themes/THEME/health-check.php". replace THEME with your current theme name.
+5. for S3 we are using the following 2 plugins:
+	1. [AWS](https://wordpress.org/plugins/amazon-web-services/)
+	2. [WP Offload S3 Lite](https://wordpress.org/plugins/amazon-s3-and-cloudfront/) 		 
+6. Wordpress wp-config.php should be something similar to:
 
 ```php
 <?php
@@ -82,6 +86,8 @@ if ( !defined('ABSPATH') )
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
 ```
+Your opsworks PHP layer should something like ![alt](https://d3vv6lp55qjaqc.cloudfront.net/items/2n0h3k103a443U2p0C2V/Screen%20Shot%202016-11-02%20at%2012.08.45%20PM.png?X-CloudApp-Visitor-Id=cc89baf049153010eb9b7a860436fccd&v=9132cdf2)
+
 
 keys.php will auto generated and linked with each deploy.
 
