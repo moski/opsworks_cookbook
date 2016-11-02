@@ -15,12 +15,6 @@ node[:deploy].each do |application, deploy|
   deploy = node[:deploy][application]
 
   template "#{deploy[:deploy_to]}/shared/config/keys.php" do
-
-    Chef::Log.info("************************")
-    Chef::Log.info(tmp.inspect)
-    Chef::Log.info("************************")
-
-
     source "keys.php.erb"
     mode 0660
     group deploy[:group]
