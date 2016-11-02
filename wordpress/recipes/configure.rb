@@ -14,7 +14,6 @@ node[:deploy].each do |application, deploy|
   tmp = deploy
   deploy = node[:deploy][application]
 
-  #template "#{deploy[:deploy_to]}/current/wp-config.php" do
   template "#{deploy[:deploy_to]}/shared/config/keys.php" do
 
     Chef::Log.info("************************")
@@ -50,5 +49,13 @@ node[:deploy].each do |application, deploy|
 
       # Domain
       :domain           => (deploy[:domains].first))
+  end
+
+  template "#{deploy[:deploy_to]}/shared/config/health-check.php" do
+    source "health-check.php.erb"
+    mode 0660
+    group deploy[:group]
+    owner deploy[:user]
+    variables(:domain => (deploy[:domains].first))
   end
 end
