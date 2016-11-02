@@ -44,7 +44,8 @@ For example, To deploy a website called example.com, you will add the fillowing 
 
 1. For [authentication keys values](https://api.wordpress.org/secret-key/1.1/salt/)
 2. In Symlink the path for the health-check.php should be inside the theme, so replace "Theme" with your theme name.
-3. Wordpress wp-config.php should be something similar to:
+3. for ELB make sure to set the ping path to "/wp-content/themes/THEME/health-check.php". replace THEME with your current theme name.
+4. Wordpress wp-config.php should be something similar to:
 
 ```php
 <?php
