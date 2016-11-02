@@ -1,8 +1,3 @@
-# AWS OpsWorks Recipe for Wordpress to be executed during the Configure lifecycle phase
-# - Creates the config file wp-config.php with MySQL data.
-# - Creates a Cronjob.
-# - Imports a database backup if it exists.
-
 # Create the Wordpress config file wp-config.php with corresponding values
 node[:deploy].each do |application, deploy|
   Chef::Log.info("Configuring WP app #{application}...")
