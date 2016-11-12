@@ -35,6 +35,7 @@ node[:deploy].each do |application, deploy|
       # S3 secret keys
       :s3_access_key    => (deploy[:aws][:s3_access_key] rescue nil),
       :s3_secret_key    => (deploy[:aws][:s3_secret_key] rescue nil),
+      :s3_bucket    => (deploy[:aws][:s3_bucket] rescue nil),
 
       # Domain
       :domain           => (deploy[:domains].first))
