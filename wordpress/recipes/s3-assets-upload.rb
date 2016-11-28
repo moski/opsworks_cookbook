@@ -12,7 +12,7 @@ node[:deploy].each do |application, deploy|
 
 	template "/usr/local/bin/aws" do
 	  source "aws"
-	  mode 0660
+	  mode 0700
 	  group deploy[:group]
 	  owner deploy[:user]
 	end
