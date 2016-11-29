@@ -18,7 +18,7 @@ node[:deploy].each do |application, deploy|
 	end
 
  	 
-	Dir.foreach(workdir) do |item|
+	Dir.glob(workdir) do |item|
 	  next if item == '.' or item == '..'
 	  # do work on real items
 	  execute "cd #{workdir} && 
