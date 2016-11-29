@@ -25,7 +25,7 @@ node[:deploy].each do |application, deploy|
  	#execute "export AWS_SECRET_ACCESS_KEY=#{s3_secret_key}"
  	#execute "export AWS_DEFAULT_REGION=#{s3_region}"
 	execute "cd #{workdir} && 
-	  aws sync .  s3://#{bucket_name}/tmp"
+	  aws s3 sync .  s3://#{bucket_name}/tmp"
 	 
 	 
 end
