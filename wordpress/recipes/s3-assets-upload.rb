@@ -17,12 +17,7 @@ node[:deploy].each do |application, deploy|
 	aws_secret = (deploy[:aws][:s3_secret_key] rescue nil)
 	bucket_name = (deploy[:aws][:s3_bucket] rescue nil)
 	s3_region = (deploy[:aws][:s3_region] rescue nil)
-	template "/usr/local/bin/aws" do
-	  source "aws"
-	  mode 0700
-	  group deploy[:group]
-	  owner deploy[:user]
-	end
+	
 
  	Chef::Log.info("workdir = #{workdir}...")
  	Chef::Log.info("bucket_name = #{bucket_name}...")
