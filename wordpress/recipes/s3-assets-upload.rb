@@ -5,10 +5,10 @@ node[:deploy].each do |application, deploy|
 	deploy = node[:deploy][application]
     
 
-	workdir = deploy[:aws][:workdir]
-	aws_key = deploy[:aws][:s3_access_key]
-	aws_secret = deploy[:aws][:s3_secret_key]
-	bucket_name = deploy[:aws][:s3_bucket]
+	workdir = (deploy[:aws][:workdir] rescue nil)
+	aws_key = (deploy[:aws][:s3_access_key] rescue nil)
+	aws_secret = (deploy[:aws][:s3_secret_key] rescue nil)
+	bucket_name = (deploy[:aws][:s3_bucket] rescue nil)
 
 	template "/usr/local/bin/aws" do
 	  source "aws"
@@ -17,8 +17,9 @@ node[:deploy].each do |application, deploy|
 	  owner deploy[:user]
 	end
 
- 	 
-	Dir.glob('#{workdir}') do |item|
+ 	Chef::Log.info("workdir = #{workdir}...")
+ 	Chef::Log.info("bucket_name = #{bucket_name}...")
+	Dir.glob(workdir) do |item|
 	  next if item == '.' or item == '..'
 	  # do work on real items
 	  execute "cd #{workdir} && 
