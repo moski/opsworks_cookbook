@@ -21,8 +21,8 @@ node[:deploy].each do |application, deploy|
 
  	Chef::Log.info("workdir = #{workdir}...")
  	Chef::Log.info("bucket_name = #{bucket_name}...")
- 	execute "export AWS_ACCESS_KEY_ID=#{s3_access_key}"
- 	execute "export AWS_SECRET_ACCESS_KEY=#{s3_secret_key}"
+ 	execute "export AWS_ACCESS_KEY_ID=#{aws_key}"
+ 	execute "export AWS_SECRET_ACCESS_KEY=#{aws_secret}"
  	execute "export AWS_DEFAULT_REGION=#{s3_region}"
 	execute "cd #{workdir} && 
 	  aws s3 sync . s3://#{bucket_name}/tmp"
