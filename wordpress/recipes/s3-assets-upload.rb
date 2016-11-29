@@ -17,9 +17,14 @@ node[:deploy].each do |application, deploy|
 	  owner deploy[:user]
 	end
 
- 
-	 execute "cd #{workdir} && 
-	  EC2_ACCESS_KEY=#{aws_key} EC2_SECRET_KEY=#{aws_secret} /usr/local/bin/aws put #{bucket_name}/wp-content/temp"
-
+ 	 
+	Dir.foreach(workdir) do |item|
+	  next if item == '.' or item == '..'
+	  # do work on real items
+	  execute "cd #{workdir} && 
+	  EC2_ACCESS_KEY=#{aws_key} EC2_SECRET_KEY=#{aws_secret} /usr/local/bin/aws put #{bucket_name}/wp-content/temp #{item}"
+	 
+	end
+	 
 end
 
