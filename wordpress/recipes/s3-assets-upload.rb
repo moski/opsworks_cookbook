@@ -22,7 +22,7 @@ node[:deploy].each do |application, deploy|
 
  	Chef::Log.info("Start on sync #{s3_assets_dir} to #{bucket_name}")
  	directory "#{deploy[:deploy_to]}/current/wp-content/uploads" do
-	  mode 0755
+	  mode 0775
 	  recursive true
 	  group deploy[:group]
    	  owner deploy[:user]
