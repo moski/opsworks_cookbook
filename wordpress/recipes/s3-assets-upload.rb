@@ -21,7 +21,7 @@ node[:deploy].each do |application, deploy|
 	
 
  	Chef::Log.info("Start on sync #{s3_assets_dir} to #{bucket_name}")
- 
+ 	execute "cd #{deploy[:deploy_to]}/current/wp-content/ && mkdir uploads"
 	execute "export AWS_DEFAULT_REGION=#{s3_region} &&
 	 export AWS_ACCESS_KEY_ID=#{aws_key} && cd #{deploy[:deploy_to]}/current/#{s3_assets_dir} && 
 	 export AWS_SECRET_ACCESS_KEY=#{aws_secret} &&
