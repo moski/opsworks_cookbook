@@ -23,12 +23,12 @@ node[:deploy].each do |application, deploy|
  	Chef::Log.info("Start on sync #{s3_assets_dir} to #{bucket_name}")
  	directory "#{deploy[:deploy_to]}/current/wp-content/uploads" do
 	  mode 0755
+	  recursive true
 	  group deploy[:group]
    	  owner deploy[:user]
 	  action :create
 	end
- 	execute "cd #{deploy[:deploy_to]}/current/wp-content/ &&
-       chmod -R g+w uploads/"
+ 	 
 	execute "export AWS_DEFAULT_REGION=#{s3_region} &&
 	 export AWS_ACCESS_KEY_ID=#{aws_key} && cd #{deploy[:deploy_to]}/current/#{s3_assets_dir} && 
 	 export AWS_SECRET_ACCESS_KEY=#{aws_secret} &&
