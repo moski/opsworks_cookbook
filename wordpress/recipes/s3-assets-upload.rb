@@ -32,7 +32,7 @@ node[:deploy].each do |application, deploy|
 	execute "export AWS_DEFAULT_REGION=#{s3_region} &&
 	 export AWS_ACCESS_KEY_ID=#{aws_key} && cd #{deploy[:deploy_to]}/current/#{s3_assets_dir} && 
 	 export AWS_SECRET_ACCESS_KEY=#{aws_secret} &&
-	  aws s3 sync . s3://#{bucket_name}/#{s3_assets_dir} --acl public-read --exclude \"*\" --include \"*.jpg\" --include \"*.png\" --include \"*.css\" --include \"*.js\" --include \"*.gif\" --include \"*.ttf\" --include \"*.woff\" --include \"*.woff2\" --include \"*.svg\" --include \"*.eot\""
+	  aws s3 sync . s3://#{bucket_name}/#{s3_assets_dir} --acl public-read --cache-control \"max-age=31536000\" --exclude \"*\" --include \"*.jpg\" --include \"*.png\" --include \"*.css\" --include \"*.js\" --include \"*.gif\" --include \"*.ttf\" --include \"*.woff\" --include \"*.woff2\" --include \"*.svg\" --include \"*.eot\""
 	 Chef::Log.info("End sync #{s3_assets_dir} to #{bucket_name}")
 
 end
