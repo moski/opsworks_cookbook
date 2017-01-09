@@ -39,6 +39,7 @@ node[:deploy].each do |application, deploy|
       :s3_region    => (deploy[:aws][:s3_region] rescue nil),
       :cf_id    => (deploy[:aws][:cf_id] rescue nil),
 
+      :wsc_link    => (deploy[:aws][:wsc_link] rescue nil),
       :redis_url    => (deploy[:aws][:redis][:url] rescue nil),
 
       # Domain
