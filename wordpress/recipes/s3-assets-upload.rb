@@ -31,7 +31,7 @@ node[:deploy].each do |application, deploy|
 	 export AWS_ACCESS_KEY_ID=#{aws_key} && 
 	 export AWS_SECRET_ACCESS_KEY=#{aws_secret} &&
 	 cd #{deploy[:deploy_to]}/current/#{s3_assets_dir} && 
-	 echo $(date) >min.task &&
+	 echo $(date)::$(git log --format=%B -n 1) >min.task &&
 	 aws s3 cp min.task s3://#{bucket_name}/#{s3_assets_remote}"
 	 Chef::Log.info("End sync #{s3_assets_remote} to #{bucket_name}")
 
