@@ -54,11 +54,5 @@ node[:deploy].each do |application, deploy|
     variables(:domain => (deploy[:domains].first))
   end
 
-  directory "#{deploy[:deploy_to]}/current/wp-content/uploads" do
-    mode 0775
-    recursive true
-    group deploy[:group]
-      owner deploy[:user]
-    action :create
-  end
+ 
 end

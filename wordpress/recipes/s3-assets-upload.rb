@@ -11,7 +11,13 @@ node[:deploy].each do |application, deploy|
 
 	deploy = node[:deploy][application]
     
-
+	directory "#{deploy[:deploy_to]}/current/wp-content/uploads" do
+	    mode 0775
+	    recursive true
+	    group deploy[:group]
+	    owner deploy[:user]
+	    action :create
+	end
 	 
 	aws_key = (deploy[:aws][:s3_access_key] rescue nil)
 	aws_secret = (deploy[:aws][:s3_secret_key] rescue nil)
