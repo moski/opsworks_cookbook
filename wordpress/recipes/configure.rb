@@ -42,6 +42,9 @@ node[:deploy].each do |application, deploy|
       :wsc_link    => (deploy[:aws][:wsc_link] rescue nil),
       :redis_url    => (deploy[:aws][:redis][:url] rescue nil),
 
+      # email notifier
+      :notifier_url    => (deploy[:notifier][:url] rescue nil),
+
       # Domain
       :domain           => (deploy[:domains].first))
   end
