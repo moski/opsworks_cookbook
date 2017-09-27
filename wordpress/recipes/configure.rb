@@ -45,6 +45,10 @@ node[:deploy].each do |application, deploy|
       # email notifier
       :notifier_url    => (deploy[:notifier][:url] rescue nil),
 
+      # MailChimp
+      :mailchimp_key    => (deploy[:mailchimp][:api_key] rescue nil),
+      :mailchimp_list_id    => (deploy[:mailchimp][:list_id] rescue nil),
+
       # Domain
       :domain           => (deploy[:domains].first))
   end
