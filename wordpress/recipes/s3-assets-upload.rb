@@ -1,5 +1,6 @@
 #upload dir to s3
 
+=begin
 node[:deploy].each do |application, deploy|
 	Chef::Log.info("Uploading Assests to S3 Bucket #{application}...")
 
@@ -43,3 +44,4 @@ node[:deploy].each do |application, deploy|
 
 end
 
+=end
