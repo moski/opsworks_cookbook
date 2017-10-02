@@ -1,4 +1,5 @@
 package "varnish"
+Chef::Log.info("Configuring Varnish...")
 
 template "#{node['varnish']['dir']}/#{node['varnish']['vcl_conf']}" do
   source node['varnish']['vcl_source']
@@ -10,6 +11,7 @@ template "#{node['varnish']['dir']}/#{node['varnish']['vcl_conf']}" do
   mode 0644
   notifies :reload, "service[varnish]"
 end
+Chef::Log.info("Finished Creating VCL...")
 
 template node['varnish']['default'] do
   source "custom-default.erb"
@@ -18,6 +20,9 @@ template node['varnish']['default'] do
   mode 0644
   notifies :restart, "service[varnish]"
 end
+
+Chef::Log.info("Finished Varnish Configuring...")
+
 
 service "varnish" do
   supports :restart => true, :reload => true
