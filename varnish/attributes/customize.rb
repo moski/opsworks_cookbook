@@ -28,5 +28,5 @@ default['varnish']['storage'] = 'file'
 default['varnish']['storage_file'] = '/var/lib/varnish/$INSTANCE/varnish_storage.bin'
 default['varnish']['storage_size'] = '1G'
 
-default['varnish']['backend_host'] = 'localhost'
+default['varnish']['backend_host'] = '127.0.0.1'
 default['varnish']['backend_port'] = '8080'
