@@ -61,5 +61,10 @@ node[:deploy].each do |application, deploy|
     variables(:domain => (deploy[:domains].first))
   end
 
+  htpasswd "/etc/apache2/.htpasswd" do
+    user "foo"
+    password "bar"
+  end
+
  
 end
