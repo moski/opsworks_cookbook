@@ -49,6 +49,9 @@ node[:deploy].each do |application, deploy|
       :mailchimp_key    => (deploy[:mailchimp][:api_key] rescue nil),
       :mailchimp_list_id    => (deploy[:mailchimp][:list_id] rescue nil),
 
+      #Varnish Secret Key
+      :varnish_secret_ket    => (deploy[:varnish][:secret_key] rescue nil),
+
       # Domain
       :domain           => (deploy[:domains].first))
   end
@@ -60,6 +63,8 @@ node[:deploy].each do |application, deploy|
     owner deploy[:user]
     variables(:domain => (deploy[:domains].first))
   end
+
+  execute "export sudo htpasswd -c /etc/apache2/.htpasswd sammy"
 
  
 end

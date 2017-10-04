@@ -5,18 +5,20 @@ backend default {
 }
 
 # Who is allowed to purge?
-acl purgers {
-    "localhost";
-    "<%= node['varnish']['backend_host'] %>";
-}
+#acl purgers {
+#    "localhost";
+#    "<%= node['varnish']['backend_host'] %>";
+#}
 
 sub vcl_recv {
 
     if (req.request == "PURGE") {
-        if (!client.ip ~ purgers) {
+        if (!req.http.X-VARNISH-SECRET == "<%= node['deploy']['varnish']['secret_key'] %>") {
             error 405 "You are not allowed to purge";
         }
-            return(lookup);
+        ban("req.http.host == " + req.http.host + " && req.url ~ " + req.url + "$");
+        error 200 "Purged.";
+        #return(lookup);
     }
 
     # Set proxied ip header to original remote address
