@@ -64,7 +64,6 @@ node[:deploy].each do |application, deploy|
     variables(:domain => (deploy[:domains].first))
   end
 
-  execute "export sudo htpasswd -c /etc/apache2/.htpasswd sammy"
 
  
 end
