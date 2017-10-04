@@ -13,7 +13,7 @@ backend default {
 sub vcl_recv {
 
     if (req.request == "PURGE") {
-        if (!req.http.X-VARNISH-SECRET == "<%= node['deploy']['varnish']['secret_key'] %>") {
+        if (!req.http.X-VARNISH-SECRET == "<%= node['varnish']['secret_key'] %>") {
             error 405 "You are not allowed to purge";
         }
         ban("req.http.host == " + req.http.host + " && req.url ~ " + req.url + "$");
