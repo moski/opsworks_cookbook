@@ -10,8 +10,8 @@ node[:deploy].each do |application, deploy|
   deploy = node[:deploy][application]
 
   apache = node[:apache]
-  apache_user = (apache[:user] rescue nil)
-  apache_password = (apache[:password] rescue nil)
+  apache_user = (apache[:ap_user] rescue nil)
+  apache_password = (apache[:ap_password] rescue nil)
 
   template "#{deploy[:deploy_to]}/shared/config/keys.php" do
     source "keys.php.erb"
