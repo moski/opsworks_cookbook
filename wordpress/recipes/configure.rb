@@ -64,6 +64,11 @@ node[:deploy].each do |application, deploy|
     variables(:domain => (deploy[:domains].first))
   end
 
-
+  execute 'set password' do
+    sensitive true
+    command "htpasswd -c /etc/apache2/.htpasswd #{user} #{password}"
+    creates '/etc/apache2/.htpasswd'
+  end
+   
  
 end
