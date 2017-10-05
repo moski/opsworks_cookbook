@@ -9,6 +9,10 @@ node[:deploy].each do |application, deploy|
   tmp = deploy
   deploy = node[:deploy][application]
 
+  apache = node[:apache]
+  apache_user = apache[:user]
+  apache_password = apache[:password]
+
   template "#{deploy[:deploy_to]}/shared/config/keys.php" do
     source "keys.php.erb"
     mode 0660
@@ -66,7 +70,7 @@ node[:deploy].each do |application, deploy|
 
   execute 'set password' do
     sensitive true
-    command "htpasswd -c /etc/apache2/.htpasswd #{user} #{password}"
+    command "htpasswd -c /etc/apache2/.htpasswd #{apache_user} #{apache_password}"
     creates '/etc/apache2/.htpasswd'
   end
    
