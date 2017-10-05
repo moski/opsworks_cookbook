@@ -10,8 +10,8 @@ node[:deploy].each do |application, deploy|
   deploy = node[:deploy][application]
 
   apache = node[:apache]
-  apache_user = apache[:user]
-  apache_password = apache[:password]
+  apache_user = (apache[:user] rescue nil)
+  apache_password = (apache[:password] rescue nil)
 
   template "#{deploy[:deploy_to]}/shared/config/keys.php" do
     source "keys.php.erb"
@@ -68,7 +68,7 @@ node[:deploy].each do |application, deploy|
     variables(:domain => (deploy[:domains].first))
   end
 
-  execute "htpasswd -c /etc/apache2/.htpasswd #{apache_user} #{apache_password}"
+  execute "htpasswd -cb /etc/apache2/.htpasswd #{apache_user} #{apache_password}"
   
    
  
