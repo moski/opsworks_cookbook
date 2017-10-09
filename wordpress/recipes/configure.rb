@@ -70,6 +70,11 @@ node[:deploy].each do |application, deploy|
 
   execute "htpasswd -cb /etc/apache2/.htpasswd #{apache_user} #{apache_password}"
   
+  execute "sudo a2enmod proxy"
+
+  execute "sudo a2enmod proxy_http"
+
+  execute "sudo a2enmod headers"
    
  
 end
