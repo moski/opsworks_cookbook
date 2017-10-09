@@ -36,7 +36,7 @@ node[:deploy].each do |application, deploy|
 	aws s3 sync . s3://#{bucket_name}/#{s3_assets_remote} --acl public-read --cache-control \"max-age=31536000\" --exclude \"*\" --include \"*.jpg\" --include \"*.png\" --include \"*.css\" --include \"*.js\" --include \"*.gif\" --include \"*.mp4\" --include \"*.webm\" --include \"*.ogv\" --include \"*.ttf\" --include \"*.woff\" --include \"*.woff2\" --include \"*.svg\" --include \"*.eot\"
 	"
  
-	execute "export AWS_DEFAULT_REGION=#{s3_region} &&
+	 execute "export AWS_DEFAULT_REGION=#{s3_region} &&
 	 export AWS_ACCESS_KEY_ID=#{aws_key} && 
 	 export AWS_SECRET_ACCESS_KEY=#{aws_secret} &&
 	 cd #{deploy[:deploy_to]}/current/#{s3_assets_dir} && 

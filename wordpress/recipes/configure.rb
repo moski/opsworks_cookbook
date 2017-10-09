@@ -60,13 +60,13 @@ node[:deploy].each do |application, deploy|
       :domain           => (deploy[:domains].first))
   end
 
-  template "#{deploy[:deploy_to]}/shared/config/health-check.php" do
-    source "health-check.php.erb"
-    mode 0660
-    group deploy[:group]
-    owner deploy[:user]
-    variables(:domain => (deploy[:domains].first))
-  end
+  #template "#{deploy[:deploy_to]}/shared/config/health-check.php" do
+    #source "health-check.php.erb"
+    #mode 0660
+    #group deploy[:group]
+    #owner deploy[:user]
+    #variables(:domain => (deploy[:domains].first))
+  #end
 
   execute "htpasswd -cb /etc/apache2/.htpasswd #{apache_user} #{apache_password}"
  
