@@ -32,4 +32,4 @@ default['varnish']['storage'] = 'malloc'
 default['varnish']['storage_size'] = '256m'
 
 default['varnish']['backend_host'] = '127.0.0.1'
-default['varnish']['backend_port'] = '8080'
+#default['varnish']['backend_port'] = '8080'

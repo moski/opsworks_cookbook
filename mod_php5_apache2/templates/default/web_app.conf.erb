@@ -1,4 +1,4 @@
-<VirtualHost *:8080>
+<VirtualHost *:<%= node[:apache][:vh_port] %>>
   ServerName <%= @params[:server_name] %>
   <% if @params[:server_aliases] && !@params[:server_aliases].empty? -%>
   ServerAlias <% @params[:server_aliases].each do |a| %><%= "#{a}" %> <% end %>
@@ -52,6 +52,7 @@
   IncludeOptional <%= @params[:local_config] %>*
   <% end -%>
   <Location /site>
+    #note
     RequestHeader set X-Forwarded-Proto "https"
     ProxyPass <%= node[:apache][:ReverseProxy] %>
     ProxyPassReverse <%= node[:apache][:ReverseProxy] %>
@@ -74,6 +75,10 @@
   SSLCACertificateFile <%= node[:apache][:dir] %>/ssl/<%= @params[:server_name] %>.ca
   <% end -%>
   SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown downgrade-1.0 force-response-1.0
+
+  RequestHeader set X-Forwarded-Proto "https"
+  ProxyPass / http://localhost:6081/
+  ProxyPassReverse / http://localhost:6081/
 
   <Directory <%= @params[:docroot] %>>
     Options FollowSymLinks
@@ -121,5 +126,11 @@
   <% else -%>
   IncludeOptional <%= @params[:local_config] %>-ssl*
   <% end -%>
+  <Location /site>
+    #note
+    RequestHeader set X-Forwarded-Proto "https"
+    ProxyPass <%= node[:apache][:ReverseProxy] %>
+    ProxyPassReverse <%= node[:apache][:ReverseProxy] %>
+  </Location>
 </VirtualHost>
 <% end -%>
