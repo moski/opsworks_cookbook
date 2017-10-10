@@ -51,12 +51,14 @@
   <% else -%>
   IncludeOptional <%= @params[:local_config] %>*
   <% end -%>
+  <% if !(node[:apache][:ReverseProxy].nil? || node[:apache][:ReverseProxy].empty?)  -%>
   <Location /site>
     #note
     RequestHeader set X-Forwarded-Proto "https"
     ProxyPass <%= node[:apache][:ReverseProxy] %>
     ProxyPassReverse <%= node[:apache][:ReverseProxy] %>
   </Location>
+  <% end -%>
 </VirtualHost>
 
 <% if node[:deploy][@application_name][:ssl_support] -%>
@@ -126,11 +128,13 @@
   <% else -%>
   IncludeOptional <%= @params[:local_config] %>-ssl*
   <% end -%>
+  <% if !(node[:apache][:ReverseProxy].nil? || node[:apache][:ReverseProxy].empty?)  -%>
   <Location /site>
     #note
     RequestHeader set X-Forwarded-Proto "https"
     ProxyPass <%= node[:apache][:ReverseProxy] %>
     ProxyPassReverse <%= node[:apache][:ReverseProxy] %>
   </Location>
+  <% end -%>
 </VirtualHost>
 <% end -%>
