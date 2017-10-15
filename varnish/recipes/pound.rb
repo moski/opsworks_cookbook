@@ -1,9 +1,9 @@
 node[:deploy].each do |application, deploy|
  Chef::Log.info("Configuring Pound #{application}...")
  deploy = node[:deploy][application]
-  
-  execute "openssl x509 -in #{deploy[:hostname]}.crt -out /etc/apache2/ssl/pound.pem"
-  execute "openssl rsa -in #{deploy[:hostname]}.key >> /etc/apache2/ssl/pound.pem"
+
+  execute "openssl x509 -in /etc/apache2/ssl/#{deploy[:hostname]}.crt -out /etc/apache2/ssl/#{node[:pound][:cert]}.pem"
+  execute "openssl rsa -in /etc/apache2/ssl/#{deploy[:hostname]}.key >> /etc/apache2/ssl/#{node[:pound][:cert]}.pem"
   template "/etc/pound/pound.cfg" do
       source "pound.cfg.erb"
       mode 0660
