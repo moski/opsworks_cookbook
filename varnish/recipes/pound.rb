@@ -12,4 +12,14 @@ node[:deploy].each do |application, deploy|
         # Domain
         :domain           => (deploy[:hostname])
   end
+
+  template "/etc/default/pound" do
+      source "pound-default.erb"
+      mode 0660
+
+      variables(
+        # DB configuration
+        :start         => (node[:pound][:start] rescue nil),
+        )
+  end
 end
