@@ -21,4 +21,9 @@ node[:deploy].each do |application, deploy|
 
       variables(:start => (node[:pound][:start] rescue nil))
   end
+
+  service "pound" do
+    supports :restart => true, :reload => true
+    action [ :enable, :start ]
+  end
 end
