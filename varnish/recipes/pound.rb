@@ -9,7 +9,7 @@ node[:deploy].each do |application, deploy|
         :cert         => (node[:pound][:cert] rescue nil),
         :https_backend_port  => (node[:pound][:https_backend_port] rescue nil),
         # Domain
-        :domain           => (deploy[:hostname])
+        :domain           => (deploy[:hostname]))
   end
 
   template "/etc/default/pound" do
