@@ -7,9 +7,9 @@ node[:deploy].each do |application, deploy|
 
       variables(
         # DB configuration
-        :cert         => (deploy[:database][:database] rescue nil),
-        :https_backend_port             => (deploy[:database][:username] rescue nil),
+        :cert         => (node[:pound][:cert] rescue nil),
+        :https_backend_port  => (node[:pound][:https_backend_port] rescue nil),
         # Domain
-        :domain           => (deploy[:domains].first))
+        :domain           => (deploy[:hostname])
   end
 end
