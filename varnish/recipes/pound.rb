@@ -6,7 +6,6 @@ node[:deploy].each do |application, deploy|
       mode 0660
 
       variables(
-        # DB configuration
         :cert         => (node[:pound][:cert] rescue nil),
         :https_backend_port  => (node[:pound][:https_backend_port] rescue nil),
         # Domain
@@ -17,9 +16,6 @@ node[:deploy].each do |application, deploy|
       source "pound-default.erb"
       mode 0660
 
-      variables(
-        # DB configuration
-        :start         => (node[:pound][:start] rescue nil),
-        )
+      variables(:start => (node[:pound][:start] rescue nil))
   end
 end
