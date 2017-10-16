@@ -1,3 +1,8 @@
+service "pound" do
+  supports :restart => true
+  action [ :start ]
+end
+
 node[:deploy].each do |application, deploy|
  Chef::Log.info("Configuring Pound #{application}...")
  deploy = node[:deploy][application]
@@ -20,7 +25,7 @@ node[:deploy].each do |application, deploy|
       mode 0660
 
       variables(:start => (node[:pound][:start] rescue nil))
+      notifies :restart, "service[pound]"
   end
-  execute "service pound restart"
- 
+  
 end
