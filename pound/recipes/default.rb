@@ -13,19 +13,14 @@ node[:deploy].each do |application, deploy|
         :https_backend_port  => (node[:pound][:https_backend_port] rescue nil),
         # Domain
         :redirect_domain           => (deploy[:hostname]))
-      notifies :restart, "service[pound]"
   end
-  Chef::Log.info("Finished Creating pound cfg...")
+  Chef::Log.info("Finished Creating Pound cfg...")
   template "/etc/default/pound" do
       source "pound-default.erb"
       mode 0660
 
       variables(:start => (node[:pound][:start] rescue nil))
-      notifies :restart, "service[pound]"
   end
-
-  service "pound" do
-    supports :restart => true
-    action :start
-  end
+  execute "service pound restart"
+ 
 end
