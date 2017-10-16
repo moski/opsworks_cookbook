@@ -1,4 +1,7 @@
-
+service "pound" do
+  supports :restart => true
+  action :nothing
+end
 
 execute "openssl x509 -in /etc/apache2/ssl/#{node[:pound][:hostname]}.crt -out /etc/apache2/ssl/#{node[:pound][:cert]}.pem"
 execute "openssl rsa -in /etc/apache2/ssl/#{node[:pound][:hostname]}.key >> /etc/apache2/ssl/#{node[:pound][:cert]}.pem"
@@ -12,6 +15,7 @@ template "/etc/pound/pound.cfg" do
         :https_backend_port  => (node[:pound][:https_backend_port] rescue nil),
         # Domain
         :redirect_domain           => (node[:pound][:hostname]))
+      notifies :restart, "service[pound]"
 end
  
 Chef::Log.info("Finished Creating Pound cfg...")
@@ -23,10 +27,12 @@ template "/etc/default/pound" do
       variables(:start => (node[:pound][:start] rescue nil))
       notifies :restart, "service[pound]"
 end
+
+
+execute "echo 'checking if Pound is not running - if so start it'" do
+  not_if "pgrep pound"
+  notifies :start, "service[pound]"
+end
  
 
 
-service "pound" do
-  supports :restart => true
-  action :start
-end
