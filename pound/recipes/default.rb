@@ -24,6 +24,7 @@ node[:deploy].each do |application, deploy|
   end
 
   service "pound" do
-    action :restart
+    supports :restart => true
+    action :start
   end
 end
