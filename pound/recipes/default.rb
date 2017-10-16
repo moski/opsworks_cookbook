@@ -19,7 +19,8 @@ node[:deploy].each do |application, deploy|
       source "pound-default.erb"
       mode 0660
 
-      variables(:start => (node[:pound][:start] rescue nil))
+      variables(:start => (node[:pound][:start] rescue nil)),
+      notifies :restart, "service[pound]"
   end
 
   service "pound" do
