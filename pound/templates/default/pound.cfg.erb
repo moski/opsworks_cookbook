@@ -48,8 +48,8 @@ ListenHTTPS
         Address 0.0.0.0
         Port    443
         Cert    "/etc/apache2/ssl/<%= @cert %>.pem"
-        #HeadRemove "X-Forwarded-Proto"
-        #AddHeader "X-Forwarded-Proto: https"
+        HeadRemove "X-Forwarded-Proto"
+        AddHeader "X-Forwarded-Proto: https"
         ## allow PUT and DELETE also (by default only GET, POST and HEAD)?:
         xHTTP           0
 
