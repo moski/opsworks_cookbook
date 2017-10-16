@@ -15,7 +15,7 @@ template "/etc/pound/pound.cfg" do
         :https_backend_port  => (node[:pound][:https_backend_port] rescue nil),
         # Domain
         :redirect_domain           => (node[:pound][:hostname]))
-      notifies :restart, "service[pound]"
+      notifies :start, "service[pound]"
 end
  
 Chef::Log.info("Finished Creating Pound cfg...")
@@ -25,7 +25,7 @@ template "/etc/default/pound" do
       mode 0660
 
       variables(:start => (node[:pound][:start] rescue nil))
-      notifies :restart, "service[pound]"
+      notifies :start, "service[pound]"
 end
 
 
