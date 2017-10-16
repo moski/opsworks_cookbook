@@ -14,17 +14,15 @@ node[:deploy].each do |application, deploy|
         # Domain
         :redirect_domain           => (deploy[:hostname]))
   end
-
+  Chef::Log.info("Finished Creating pound cfg...")
   template "/etc/default/pound" do
       source "pound-default.erb"
       mode 0660
 
-      variables(:start => (node[:pound][:start] rescue nil)),
-      notifies :restart, "service[pound]"
+      variables(:start => (node[:pound][:start] rescue nil))
   end
 
   service "pound" do
-    supports :restart => true, :reload => true
-    action [ :enable, :start ]
+    action :restart
   end
 end
