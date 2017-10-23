@@ -1,5 +1,6 @@
-execute "openssl x509 -in /etc/apache2/ssl/#{node[:pound][:hostname]}.crt -out /etc/apache2/ssl/#{node[:pound][:cert]}.pem"
-execute "openssl rsa -in /etc/apache2/ssl/#{node[:pound][:hostname]}.key >> /etc/apache2/ssl/#{node[:pound][:cert]}.pem"
+#execute "openssl x509 -in /etc/apache2/ssl/#{node[:pound][:hostname]}.crt -out /etc/apache2/ssl/#{node[:pound][:cert]}.pem"
+#execute "openssl rsa -in /etc/apache2/ssl/#{node[:pound][:hostname]}.key >> /etc/apache2/ssl/#{node[:pound][:cert]}.pem"
+execute "cat /etc/apache2/ssl/#{node[:pound][:hostname]}.key /etc/apache2/ssl/#{node[:pound][:hostname]}.crt /etc/apache2/ssl/#{node[:pound][:hostname]}.ca > /etc/apache2/ssl/#{node[:pound][:cert]}.pem"
 
 template "/etc/pound/pound.cfg" do
       source "pound.cfg.erb"
