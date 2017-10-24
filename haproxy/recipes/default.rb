@@ -1,5 +1,11 @@
-execute "cat /etc/apache2/ssl/#{node[:haproxy][:hostname]}.key <\(echo\) /etc/apache2/ssl/#{node[:haproxy][:hostname]}.crt <\(echo\) /etc/apache2/ssl/#{node[:haproxy][:hostname]}.ca > /etc/apache2/ssl/#{node[:haproxy][:cert]}.pem"
+execute "cat /etc/apache2/ssl/#{node[:haproxy][:hostname]}.key > /etc/apache2/ssl/#{node[:haproxy][:cert]}.pem &&
+echo ''  >> /etc/apache2/ssl/#{node[:haproxy][:cert]}.pem && 
+cat /etc/apache2/ssl/#{node[:haproxy][:hostname]}.crt >> /etc/apache2/ssl/#{node[:haproxy][:cert]}.pem &&
+echo ''  >> /etc/apache2/ssl/#{node[:haproxy][:cert]}.pem && 
+cat /etc/apache2/ssl/#{node[:haproxy][:hostname]}.ca >> /etc/apache2/ssl/#{node[:haproxy][:cert]}.pem"
+
 execute "add-apt-repository ppa:vbernat/haproxy-1.7"
+
 execute "apt-get update"
  
 package 'haproxy' do
