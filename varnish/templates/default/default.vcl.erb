@@ -16,8 +16,9 @@ sub vcl_recv {
         if (!req.http.X-VARNISH-SECRET == "<%= node['varnish']['secret_key'] %>") {
             error 405 "You are not allowed to purge";
         }
-        ban("req.http.host == " + req.http.host + " && req.url ~ " + req.url + "$");
-        error 200 "Purged.";
+        ban("obj.http.x-url ~ " + req.url);
+        #ban("req.http.host == " + req.http.host + " && req.url ~ " + req.url + "$");
+        error 200 "Purged." + req.url;
         #return(lookup);
     }
 
@@ -83,7 +84,7 @@ sub vcl_fetch {
     # If the backend fails, keep serving out of the cache for 30m
     set beresp.grace = 30m;
     set beresp.ttl = 48h;
-
+    set beresp.http.x-url = req.url;
     # Remove some unwanted headers
     unset beresp.http.Server;
     unset beresp.http.X-Powered-By;
