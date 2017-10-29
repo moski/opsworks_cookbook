@@ -12,6 +12,19 @@ backend default {
 
 sub vcl_recv {
 
+    # Define the desktop device
+  set req.http.X-Device = "WEB";
+
+  if (req.http.User-Agent ~ "iP(hone|od)" || req.http.User-Agent ~ "Android" || req.http.User-Agent ~ "iPad") {
+    # Define smartphones and tablets
+    set req.http.X-Device = "MOBILE";
+  }
+
+  elseif (req.http.User-Agent ~ "SymbianOS" || req.http.User-Agent ~ "^BlackBerry" || req.http.User-Agent ~ "^SonyEricsson" || req.http.User-Agent ~ "^Nokia" ||
+  req.http.User-Agent ~ "^SAMSUNG" || req.http.User-Agent ~ "^LG") {
+    # Define every other mobile device
+    set req.http.X-Device = "MOBILE";
+  }
     if (req.request == "PURGE") {
         if (!req.http.X-VARNISH-SECRET == "<%= node['varnish']['secret_key'] %>") {
             error 405 "You are not allowed to purge";
@@ -124,6 +137,19 @@ sub vcl_fetch {
     }
 
     return(deliver);
+
+}
+
+sub vcl_hash {
+ if ( req.http.X-Forwarded-Proto ) {
+  if ( req.http.X-Device ~ "MOBILE" ) {
+    hash_data( req.http.X-Forwarded-Proto + req.http.X-Device );
+  }else{
+
+    hash_data( req.http.X-Forwarded-Proto );
+  }
+}
+
 
 }
 
