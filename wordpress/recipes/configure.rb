@@ -50,7 +50,7 @@ node[:deploy].each do |application, deploy|
       :notifier_url    => (deploy[:notifier][:url] rescue nil),
 
       # branch io key
-      :branchio_key    => (deploy[:branchio][:key] rescue nil),
+      :branchio_key    => (deploy[:branchio][:api_key] rescue nil),
 
       # MailChimp
       :mailchimp_key    => (deploy[:mailchimp][:api_key] rescue nil),
