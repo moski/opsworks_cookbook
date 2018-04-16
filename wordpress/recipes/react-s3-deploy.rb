@@ -35,7 +35,7 @@ node[:deploy].each do |application, deploy|
 	         export AWS_ACCESS_KEY_ID=#{aws_key} &&
 	         export AWS_SECRET_ACCESS_KEY=#{aws_secret} &&
 	         cd #{deploy[:deploy_to]}/current/#{local_dir} &&
-			 aws s3 sync s3://#{bucket_name}/ . --recursive"
+			 aws s3 sync s3://#{bucket_name}/ ."
 
 	Chef::Log.info("End sync /#{local_dir} from #{bucket_name}")
 
