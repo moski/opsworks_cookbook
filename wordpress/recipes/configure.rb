@@ -59,6 +59,10 @@ node[:deploy].each do |application, deploy|
       #Varnish Secret Key
       :varnish_secret_ket    => (deploy[:varnish][:secret_key] rescue nil),
 
+      #google keys
+      :google_map_api_key    => (deploy[:google][:map_api_key] rescue nil),
+      :google_recaptcha_key    => (deploy[:google][:recaptcha_key] rescue nil),
+
       # Domain
       :domain           => (deploy[:domains].first))
   end
