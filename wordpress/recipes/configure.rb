@@ -62,6 +62,7 @@ node[:deploy].each do |application, deploy|
       #google keys
       :google_map_api_key    => (deploy[:google][:map_api_key] rescue nil),
       :google_recaptcha_key    => (deploy[:google][:recaptcha_key] rescue nil),
+      :google_recaptcha_secret_key    => (deploy[:google][:recaptcha_secret_key] rescue nil),
 
       # Domain
       :domain           => (deploy[:domains].first))
