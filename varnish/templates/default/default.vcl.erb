@@ -156,7 +156,7 @@ sub vcl_hash {
 sub vcl_deliver {
 
     unset resp.http.x-url; # Optional
-
+    set resp.http.X-Frame-Options = "DENY";
     # Add debugging headers to cache requests
     if (obj.hits > 0) {
         set resp.http.X-Cache = "HIT";
