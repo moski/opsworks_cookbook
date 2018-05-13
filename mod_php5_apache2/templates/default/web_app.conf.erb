@@ -52,12 +52,16 @@
   IncludeOptional <%= @params[:local_config] %>*
   <% end -%>
   <% if !(node[:apache][:ReverseProxy].nil? || node[:apache][:ReverseProxy].empty?)  -%>
-  <Location /site>
-    #note
-    RequestHeader set X-Forwarded-Proto "https"
-    ProxyPass <%= node[:apache][:ReverseProxy] %>
-    ProxyPassReverse <%= node[:apache][:ReverseProxy] %>
-  </Location>
+  <% node[:apache][:ReverseProxy].each do |a| %>
+     <Location /<%= a.path %>>
+        #generater R-Proxy
+        RequestHeader set X-Forwarded-Proto "https"
+        ProxyPass <%= a.url %>
+        ProxyPassReverse <%= a.url %>
+      </Location>
+  <% end %>
+
+  
   <% end -%>
 </VirtualHost>
 
@@ -129,12 +133,14 @@
   IncludeOptional <%= @params[:local_config] %>-ssl*
   <% end -%>
   <% if !(node[:apache][:ReverseProxy].nil? || node[:apache][:ReverseProxy].empty?)  -%>
-  <Location /site>
-    #note
-    RequestHeader set X-Forwarded-Proto "https"
-    ProxyPass <%= node[:apache][:ReverseProxy] %>
-    ProxyPassReverse <%= node[:apache][:ReverseProxy] %>
-  </Location>
+   <% node[:apache][:ReverseProxy].each do |a| %>
+     <Location /<%= a.path %>>
+        #generater R-Proxy
+        RequestHeader set X-Forwarded-Proto "https"
+        ProxyPass <%= a.url %>
+        ProxyPassReverse <%= a.url %>
+      </Location>
+  <% end %>
   <% end -%>
 </VirtualHost>
 <% end -%>
