@@ -63,9 +63,11 @@ backend application-backend
     acl restricted_page path_beg <%= a %>
     <% end %>
     <% end %>
+    acl auth_ok http_auth(UsersFor_WP)
     http-request auth if !restricted_page !auth_ok
     <% else -%>
     acl restricted_page path_beg /wp-login.php
+    acl auth_ok http_auth(UsersFor_WP)
     http-request auth if restricted_page !auth_ok
     <% end -%>
     #enter the IP of your application here
