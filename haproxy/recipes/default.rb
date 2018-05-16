@@ -17,6 +17,10 @@ template "/etc/haproxy/haproxy.cfg" do
       mode 0660
 
       variables(
+        :ha_username         => (node[:haproxy][:ha_user] rescue nil),
+        :ha_password         => (node[:haproxy][:ha_password] rescue nil),
+        :protection         => (node[:haproxy][:protection] rescue nil),
+        :allowed_pass         => (node[:haproxy][:allowed_pass] rescue nil),
         :cert         => (node[:haproxy][:cert] rescue nil),
         :https_backend_port  => (node[:haproxy][:https_backend_port] rescue nil),
         # Domain

@@ -36,6 +36,10 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 
+userlist UsersFor_WP
+<% if !(node[:haproxy][:ha_user].nil? || node[:haproxy][:ha_user].empty?)  -%>
+    user <%= @ha_username %> insecure-password <%= @ha_password %>
+<% end %>
 
 frontend http-in
     bind *:80
@@ -53,6 +57,16 @@ backend application-backend
     option httpclose
     option forwardfor
     cookie JSESSIONID prefix
-
+    <% if node[:haproxy][:protection] == 'all' -%>
+    <% if !(node[:haproxy][:allowed_pass].nil? || node[:haproxy][:allowed_pass].empty?)  -%>
+    <% node[:haproxy][:allowed_pass].each do |a| %>
+    acl restricted_page path_beg <%= a %>
+    <% end %>
+    <% end %>
+    http-request auth if !restricted_page !auth_ok
+    <% else -%>
+    acl restricted_page path_beg /wp-login.php
+    http-request auth if restricted_page !auth_ok
+    <% end -%>
     #enter the IP of your application here
     server node1 0.0.0.0:<%= @https_backend_port %> cookie A check
