@@ -44,7 +44,8 @@ userlist UsersFor_WP
 frontend http-in
     bind *:80
     reqadd X-Forwarded-Proto:\ http
-    default_backend application-backend
+    #default_backend application-backend
+    redirect scheme https if !{ ssl_fc }
 
 frontend https-in
     bind *:443 ssl crt /etc/apache2/ssl/<%= @cert %>.pem
