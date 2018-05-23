@@ -81,6 +81,15 @@ sub vcl_recv {
         return(pass);
     }
 
+    # Disable caching for custom routes
+    <% if !(node[:varnish][:pass_paths].nil? || node[:varnish][:pass_paths].empty?)  -%>
+    <% node[:varnish][:pass_paths].each do |a| %>
+    if ( req.url ~ "^<%= a %>"){
+        return(pass);
+    }
+    <% end %>
+    <% end %>
+
     # always pass through posted requests and those with basic auth
     if ( req.request == "POST" || req.http.Authorization ) {
         return (pass);
