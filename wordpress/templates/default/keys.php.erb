@@ -37,6 +37,15 @@ define('CF_ID', '<%= @cf_id %>' );
 define('WP_REDIS_HOST', '<%= @redis_url %>' );
 define('WP_REDIS_CLIENT', '<%= @redis_client %>' );
 
+/** SMTP **/
+define('SMTP_USER', '<%= @smtp_user %>' );
+define('SMTP_PASS', '<%= @smtp_password %>' );
+define('SMTP_HOST', '<%= @smtp_host %>' );
+define('SMTP_FROM', '<%= @smtp_email %>' );
+define('SMTP_NAME', '<%= @smtp_name %>' );
+define('SMTP_PORT', '<%= @smtp_port %>' );
+
+
 /** Configs **/
 
 <% @configs.each do |key, value| %>

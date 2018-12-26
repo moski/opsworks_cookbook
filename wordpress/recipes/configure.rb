@@ -45,6 +45,13 @@ node[:deploy].each do |application, deploy|
       :redis_url    => (deploy[:aws][:redis][:url] rescue nil),
       :redis_client    => (deploy[:aws][:redis][:client] rescue nil),
 
+      #SMTP 
+      :smtp_user   => (deploy[:smtp][:user] rescue nil),
+      :smtp_password   => (deploy[:smtp][:password] rescue nil),
+      :smtp_host    => (deploy[:smtp][:host] rescue nil),
+      :smtp_email    => (deploy[:smtp][:email] rescue nil),
+      :smtp_name    => (deploy[:smtp][:name] rescue nil),
+      :smtp_port   => (deploy[:smtp][:port] rescue nil),
 
       :configs  => (deploy[:configs] rescue nil),
 
