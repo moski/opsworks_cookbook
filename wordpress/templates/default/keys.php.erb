@@ -28,29 +28,26 @@ define('SECURE_AUTH_SALT', '<%= @secure_auth_salt %>');
 define('LOGGED_IN_SALT',   '<%= @logged_in_salt %>');
 define('NONCE_SALT',       '<%= @nonce_salt%>');
 
+/** AWS KEYS **/
 define('DBI_AWS_ACCESS_KEY_ID', '<%= @s3_access_key %>' );
 define('DBI_AWS_SECRET_ACCESS_KEY', '<%= @s3_secret_key %>' );
 define('AS3CF_BUCKET', '<%= @s3_bucket %>' );
 define('AWS_S3_BUCKET_REGION', '<%= @s3_region %>' );
 define('CF_ID', '<%= @cf_id %>' );
-
 define('WP_REDIS_HOST', '<%= @redis_url %>' );
 define('WP_REDIS_CLIENT', '<%= @redis_client %>' );
 
-define('WSC_LINK', '<%= @wsc_link %>' );
+/** Configs **/
 
+<% configs.each do |key, value| %>
+    define('<%= @key%>', '<%= @value%>');
+<% end %>
 define('NOTIFIER_URL', '<%= @notifier_url %>' );
-define('MAILCHIMP_KEY', '<%= @mailchimp_key %>' );
-define('MAILCHIMP_LIST_ID', '<%= @mailchimp_list_id %>' );
 
-define('X_VARNISH_SECRET',       '<%= @varnish_secret_ket%>');
-define('BRANCH_IO_KEY',       '<%= @branchio_key%>');
-
+/** Google Keys **/
 define('GOOGLE_MAP_API_KEY',       '<%= @google_map_api_key%>');
-
 define('GOOGLE_RECAPTCHA_KEY_V2',       '<%= @google_recaptcha_key_v2%>');
 define('GOOGLE_RECAPTCHA_SECRET_KEY_V2',       '<%= @google_recaptcha_secret_key_v2%>');
-
 define('GOOGLE_RECAPTCHA_KEY_INVISIBLE',       '<%= @google_recaptcha_key_invisible%>');
 define('GOOGLE_RECAPTCHA_SECRET_KEY_INVISIBLE',       '<%= @google_recaptcha_secret_key_invisible%>');
 

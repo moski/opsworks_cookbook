@@ -36,29 +36,17 @@ node[:deploy].each do |application, deploy|
       :logged_in_salt   => (deploy[:authentication][:logged_in_salt] rescue nil),
       :nonce_salt       => (deploy[:authentication][:nonce_salt] rescue nil),
 
-      # S3 secret keys
+      # AWS keys
       :s3_access_key    => (deploy[:aws][:s3_access_key] rescue nil),
       :s3_secret_key    => (deploy[:aws][:s3_secret_key] rescue nil),
       :s3_bucket    => (deploy[:aws][:s3_bucket] rescue nil),
       :s3_region    => (deploy[:aws][:s3_region] rescue nil),
       :cf_id    => (deploy[:aws][:cf_id] rescue nil),
-
-      :wsc_link    => (deploy[:aws][:wsc_link] rescue nil),
       :redis_url    => (deploy[:aws][:redis][:url] rescue nil),
       :redis_client    => (deploy[:aws][:redis][:client] rescue nil),
 
-      # email notifier
-      :notifier_url    => (deploy[:notifier][:url] rescue nil),
 
-      # branch io key
-      :branchio_key    => (deploy[:branchio][:key] rescue nil),
-
-      # MailChimp
-      :mailchimp_key    => (deploy[:mailchimp][:api_key] rescue nil),
-      :mailchimp_list_id    => (deploy[:mailchimp][:list_id] rescue nil),
-
-      #Varnish Secret Key
-      :varnish_secret_ket    => (deploy[:varnish][:secret_key] rescue nil),
+      :configs  => (deploy[:configs] rescue nil),
 
       #google keys
       :google_map_api_key    => (deploy[:google][:map_api_key] rescue nil),
