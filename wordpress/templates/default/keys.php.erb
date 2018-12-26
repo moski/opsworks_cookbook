@@ -49,7 +49,7 @@ define('SMTP_PORT', '<%= @smtp_port %>' );
 /** Configs **/
 
 <% @configs.each do |key, value| %>
-    define('<%= @key%>', '<%= @value%>');
+    define('<%= key %>', '<%= value %>');
 <% end %>
 define('NOTIFIER_URL', '<%= @notifier_url %>' );
 
