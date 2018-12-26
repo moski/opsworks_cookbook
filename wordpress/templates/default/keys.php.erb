@@ -39,7 +39,7 @@ define('WP_REDIS_CLIENT', '<%= @redis_client %>' );
 
 /** Configs **/
 
-<% configs.each do |key, value| %>
+<% @configs.each do |key, value| %>
     define('<%= @key%>', '<%= @value%>');
 <% end %>
 define('NOTIFIER_URL', '<%= @notifier_url %>' );
