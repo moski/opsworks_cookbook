@@ -27,7 +27,7 @@
         AuthType Basic
         AuthName "Restricted Content"
         AuthUserFile /etc/apache2/htpasswd
-        Require <%= node[:htpasswd][:user] %>
+        Require valid-user
     </Directory>
     <% if !(node[:apache][:allowed_pass].nil? || node[:apache][:allowed_pass].empty?)  -%>
     <% node[:apache][:allowed_pass].each do |a| %>
@@ -133,7 +133,7 @@
         AuthType Basic
         AuthName "Restricted Content"
         AuthUserFile /etc/apache2/htpasswd
-        Require <%= node[:htpasswd][:user] %>
+        Require valid-user
     </Directory>
     <% if !(node[:apache][:allowed_pass].nil? || node[:apache][:allowed_pass].empty?)  -%>
     <% node[:apache][:allowed_pass].each do |a| %>
