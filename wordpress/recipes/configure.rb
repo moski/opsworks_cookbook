@@ -25,6 +25,7 @@ node[:deploy].each do |application, deploy|
       :user             => (deploy[:database][:username] rescue nil),
       :password         => (deploy[:database][:password] rescue nil),
       :host             => (deploy[:database][:host] rescue nil),
+      :table_prefix             => (deploy[:database][:prefix] rescue nil),
 
       # authentication
       :auth_key         => (deploy[:authentication][:auth_key] rescue nil),
