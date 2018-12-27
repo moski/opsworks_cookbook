@@ -76,6 +76,5 @@ node[:deploy].each do |application, deploy|
     #variables(:domain => (deploy[:domains].first))
   #end
 
-  execute "htpasswd -cb /etc/apache2/.htpasswd #{apache_user} #{apache_password}"
  
 end
