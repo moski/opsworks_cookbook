@@ -22,6 +22,31 @@
     Deny from all
   </Directory>
 
+  <% if node[:apache][:protection] == 'all' -%>
+    <Directory <%= @params[:docroot] %>>
+        AuthType Basic
+        AuthName "Restricted Content"
+        AuthUserFile /etc/apache2/htpasswd
+        Require <%= node[:htpasswd][:user] %>
+    </Directory>
+    <% if !(node[:apache][:allowed_pass].nil? || node[:apache][:allowed_pass].empty?)  -%>
+    <% node[:apache][:allowed_pass].each do |a| %>
+     <Location <%= a %>>
+       allow from all
+       Satisfy Any
+     </Location>
+    <% end %>
+    <% end %>
+  <% elsif node[:haproxy][:protection] == 'login' -%>
+    <Directory <%= @params[:docroot] %>wp-login.php>
+        AuthType Basic
+        AuthName "Restricted Content"
+        AuthUserFile /etc/apache2/htpasswd
+        Require <%= node[:htpasswd][:user] %>
+    </Directory>
+  <% end -%>
+
+
   LogLevel <%= node[:apache][:log_level] %>
   ErrorLog <%= node[:apache][:log_dir] %>/<%= @params[:name] %>-error.log
   CustomLog <%= node[:apache][:log_dir] %>/<%= @params[:name] %>-access.log combined
@@ -102,6 +127,30 @@
     Order allow,deny
     Deny from all
   </Directory>
+
+  <% if node[:apache][:protection] == 'all' -%>
+    <Directory <%= @params[:docroot] %>>
+        AuthType Basic
+        AuthName "Restricted Content"
+        AuthUserFile /etc/apache2/htpasswd
+        Require <%= node[:htpasswd][:user] %>
+    </Directory>
+    <% if !(node[:apache][:allowed_pass].nil? || node[:apache][:allowed_pass].empty?)  -%>
+    <% node[:apache][:allowed_pass].each do |a| %>
+     <Location <%= a %>>
+       allow from all
+       Satisfy Any
+     </Location>
+    <% end %>
+    <% end %>
+  <% elsif node[:haproxy][:protection] == 'login' -%>
+    <Directory <%= @params[:docroot] %>wp-login.php>
+        AuthType Basic
+        AuthName "Restricted Content"
+        AuthUserFile /etc/apache2/htpasswd
+        Require <%= node[:htpasswd][:user] %>
+    </Directory>
+  <% end -%>
 
   LogLevel <%= node[:apache][:log_level] %>
   ErrorLog <%= node[:apache][:log_dir] %>/<%= @params[:name] %>-error.log
